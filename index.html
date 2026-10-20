@@ -109,6 +109,7 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .ref, .card.annotated [data-ref] .t { background-image: linear-gradient(var(--hint-bg), var(--hint-bg)); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%; transition: background-size .4s cubic-bezier(.3,.7,.3,1), color .2s; }
 .ref.hl { background-size: 100% 100%; color: var(--hint-ink); }
 @media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
+.ref.now, .card.annotated [data-ref].now .t { transition: none; }
 .card.annotated [data-ref].hl .t { background-size: 100% 100%; color: var(--hint-ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; border-radius: 2px; }
 .card.annotated [data-ref].hl .t .rest, .card.annotated [data-ref].hl .t a { color: var(--hint-ink); }
 .ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
@@ -155,9 +156,10 @@ footer.notes { grid-area: notes; }
 
 @media (max-width: 440px) {
   .card { grid-template-columns: 40px 1fr; }
-  .pay { grid-column: 1 / -1; text-align: left; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding-bottom: 0; border-bottom: 0; }
-  .card.annotated .pay .hint { flex-basis: 100%; margin: 0; }
+  .pay { grid-column: 1 / -1; text-align: left; padding-bottom: 0; border-bottom: 0; }
+  .card.annotated .pay .hint { margin: 0 0 8px; }
   .pay strong, .pay span { display: inline; margin: 0; }
+  .pay strong { margin-right: 8px; }
 }
 </style>
 </head>
@@ -226,14 +228,25 @@ buttons.forEach(b => {
   });
 });
 apply();
-function setHl(ref, on) {
-  document.querySelectorAll(`.ref[data-ref="${ref}"], .card.annotated [data-ref="${ref}"]`).forEach(el => el.classList.toggle('hl', on));
+function setHl(ref, on, src) {
+  const els = document.querySelectorAll(`.ref[data-ref="${ref}"], .card.annotated [data-ref="${ref}"]`);
+  if (on) {
+    if (src) src.classList.add('now');
+    els.forEach(el => el.classList.add('hl'));
+  } else {
+    els.forEach(el => el.classList.remove('hl'));
+    void document.body.offsetWidth; // apply the removal before transitions come back on
+    els.forEach(el => el.classList.remove('now'));
+  }
+}
+function refEl(t) {
+  return (t && t.closest && t.closest('.ref, .card.annotated [data-ref]')) || null;
 }
 function refOf(t) {
-  const el = t.closest && t.closest('.ref, .card.annotated [data-ref]');
+  const el = refEl(t);
   return el ? el.dataset.ref : null;
 }
-['mouseover', 'focusin'].forEach(ev => document.addEventListener(ev, e => { const r = refOf(e.target); if (r) setHl(r, true); }));
+['mouseover', 'focusin'].forEach(ev => document.addEventListener(ev, e => { const el = refEl(e.target); if (el) setHl(el.dataset.ref, true, el); }));
 ['mouseout', 'focusout'].forEach(ev => document.addEventListener(ev, e => {
   const r = refOf(e.target);
   if (r && !(e.relatedTarget && refOf(e.relatedTarget) === r)) setHl(r, false);
