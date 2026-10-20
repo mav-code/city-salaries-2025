@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>First Steps into NYC's Best-Paid Public Jobs</title>
+<meta name="description" content="84 ways to start a City of New York career, covering every job title that paid someone at least $200,000 in fiscal-year 2025 payroll.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+</style>
+<style>
+/* Layout: short header and category filter, then a single readable column of flat cards ordered by top pay */
+:root {
+  --ground: #f3f4f6;
+  --card: #ffffff;
+  --ink: #16191d;
+  --muted: #646d77;
+  --rule: #e1e4e8;
+  --link: #2459b3;
+  --num-bg: #121417;
+  --num-ink: #f5f6f7;
+  --hint-bg: #fbeea8;
+  --hint-ink: #4a3b00;
+  --hl: #e8c53a;
+  --on-cat: #ffffff;
+  --cat-trade: #b25e24;
+  --cat-uniform: #2c5c9a;
+  --cat-degree: #2d7556;
+  --cat-appoint: #66519f;
+  --font: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
+    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+    --on-cat: #ffffff;
+    --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
+    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+  --on-cat: #ffffff;
+  --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+  color-scheme: dark;
+}
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 36px 48px;
+}
+.wrap { max-width: 56.25rem; margin: 0 auto; display: grid; gap: 20px; }
+header.top { display: grid; gap: 8px; max-width: 70ch; }
+h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.lede a { color: var(--link); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--card); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 3px;
+  padding: 6px 11px; cursor: pointer;
+}
+.filters button .sw { width: 10px; height: 10px; background: var(--sw, var(--muted)); }
+.filters button[aria-pressed="true"] { border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.filters .count { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+
+.card {
+  --cat: var(--cat-trade);
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  min-width: 0;
+}
+.card.uniform { --cat: var(--cat-uniform); }
+.card.degree { --cat: var(--cat-degree); }
+.card.appoint { --cat: var(--cat-appoint); }
+.path { background: var(--cat); color: var(--on-cat); }
+.num { background: var(--num-bg); color: var(--num-ink); }
+.num { font-weight: 700; font-size: 16px; font-variant-numeric: tabular-nums; display: flex; justify-content: center; padding-top: 13px; }
+.path { margin: 0; font-weight: 600; font-size: 16px; line-height: 1.35; text-wrap: balance; padding: 12px 16px 12px 2px; min-width: 0; }
+.pay { padding: 12px 16px; font-variant-numeric: tabular-nums; text-align: right; border-bottom: 1px solid var(--rule); }
+.pay strong { display: block; font-weight: 700; font-size: 16px; }
+.card:not(.annotated) .hint { display: none; }
+.card.annotated .hint, .card.annotated .pay .hint {
+  display: table; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--hint-bg); color: var(--hint-ink); padding: 2px 6px; border-radius: 2px; margin: 0 0 6px; white-space: nowrap;
+}
+.pay .hint { margin-left: auto; }
+.card.annotated .pay .hint { margin-left: auto; }
+/* two-way highlight between the intro and the labelled card */
+.ref { color: var(--ink); border-bottom: 1.5px dotted var(--hl); cursor: help; border-radius: 2px; }
+.ref, .card.annotated [data-ref] .t { background-image: linear-gradient(var(--hint-bg), var(--hint-bg)); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%; transition: background-size .4s cubic-bezier(.3,.7,.3,1), color .2s; }
+.ref.hl { background-size: 100% 100%; color: var(--hint-ink); }
+@media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
+.card.annotated [data-ref].hl .t { background-size: 100% 100%; color: var(--hint-ink); -webkit-box-decoration-break: clone; box-decoration-break: clone; border-radius: 2px; }
+.card.annotated [data-ref].hl .t .rest, .card.annotated [data-ref].hl .t a { color: var(--hint-ink); }
+.ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.pay span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
+.title-line { grid-column: 1 / -1; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
+.title-line .title { font-weight: 600; }
+.title-line .rest { color: var(--muted); }
+.sources { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding: 10px 16px 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.sources a { color: var(--link); text-decoration: none; }
+.sources a:hover, .sources a:focus-visible { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+footer.notes { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 80ch; border-top: 1px solid var(--rule); padding-top: 14px; }
+footer.notes p { margin: 0 0 6px; }
+footer.notes a { color: var(--link); }
+
+.wrap { grid-template-areas: "lead" "main" "notes"; }
+.lead { grid-area: lead; display: grid; gap: 20px; }
+.grid { grid-area: main; }
+footer.notes { grid-area: notes; }
+
+/* Wider screens: notes move to a right-hand column first, then title and filters to a left-hand column */
+@media (min-width: 80rem) {
+  .wrap {
+    max-width: calc(56.25rem + 16rem + 2.5rem);
+    grid-template-columns: minmax(0, 56.25rem) 16rem;
+    grid-template-areas: "lead ." "main notes";
+    column-gap: 2.5rem;
+  }
+  footer.notes { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); border-top: 0; padding-top: 0; }
+}
+@media (min-width: 100rem) {
+  .wrap {
+    max-width: calc(56.25rem + 2 * 16rem + 2 * 2.5rem);
+    grid-template-columns: 16rem minmax(0, 56.25rem) 16rem;
+    grid-template-areas: "lead main notes";
+  }
+  .lead { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); }
+  .lead h1 { font-size: 22px; }
+  .filters { flex-direction: column; align-items: stretch; }
+  .filters button { justify-content: flex-start; }
+  .filters .count { margin-left: auto; }
+}
+
+@media (max-width: 440px) {
+  .card { grid-template-columns: 40px 1fr; }
+  .pay { grid-column: 1 / -1; text-align: left; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding-bottom: 0; border-bottom: 0; }
+  .card.annotated .pay .hint { flex-basis: 100%; margin: 0; }
+  .pay strong, .pay span { display: inline; margin: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lead">
+  <header class="top">
+    <h1>First steps into NYC's best-paid public jobs</h1>
+    <p class="lede">Each card is <span class="ref" data-ref="start" tabindex="0">one way to start</span> a career with the City of New York: a trade, a civil-service exam, a degree, an appointment or an election. Together the 84 cards cover all 443 job titles that paid someone at least $200,000 in the <a href="https://data.cityofnewyork.us/d/k397-673e" target="_blank" rel="noopener">city's official 2025 payroll</a>. Each card shows the <span class="ref" data-ref="title" tabindex="0">best-paid job</span> its start led to, that job's <span class="ref" data-ref="pay" tabindex="0">2025 pay</span>, and the <span class="ref" data-ref="sources" tabindex="0">postings that set out the requirements</span>.</p>
+  </header>
+
+  <div class="filters" role="group" aria-label="Filter by type of entry path; select one or more">
+    <button type="button" id="f-all" data-cat="all" aria-pressed="true">All <span class="count"></span></button>
+    <button type="button" id="f-trade" data-cat="trade" aria-pressed="false" style="--sw: var(--cat-trade)"><span class="sw"></span>Trades <span class="count"></span></button>
+    <button type="button" id="f-uniform" data-cat="uniform" aria-pressed="false" style="--sw: var(--cat-uniform)"><span class="sw"></span>Uniformed services <span class="count"></span></button>
+    <button type="button" id="f-degree" data-cat="degree" aria-pressed="false" style="--sw: var(--cat-degree)"><span class="sw"></span>Degrees and credentials <span class="count"></span></button>
+    <button type="button" id="f-appoint" data-cat="appoint" aria-pressed="false" style="--sw: var(--cat-appoint)"><span class="sw"></span>Appointed or elected <span class="count"></span></button>
+  </div>
+  </div>
+
+  <main class="grid" id="grid"></main>
+
+  <footer class="notes">
+    <p>Pay is total fiscal-year 2025 pay (July 2024 – June 2025): regular pay plus overtime plus other pay such as lump sums and retroactive raises. Base salary is shown beside it; a large gap usually means a one-off payout. Base salary is the annual rate at the end of the fiscal year, so it can be higher than what was actually paid when someone got a raise or started partway through the year.</p>
+    <p>Source: NYC Office of Payroll Administration, <a href="https://data.cityofnewyork.us/d/k397-673e">Citywide Payroll Data (Fiscal Year)</a>. Titles share a card when their entry path is the same; appointed jobs are grouped by who appoints. A title counts once it paid at least one person $200,000 or more in total. To look up individual employees, the same payroll is searchable at <a href="https://www.seethroughny.net/payrolls/city-of-new-york" target="_blank" rel="noopener">SeeThroughNY</a>.</p>
+    <p>Not affiliated with the City of New York. Requirements change; check the current exam notice or posting before applying.</p>
+  </footer>
+</div>
+
+<script>
+const DATA = [{"n": 1, "cat": "trade", "path": "Maritime academy degree in marine engineering, or a job as an engine-room wiper", "total": "$646,305", "base": "$174,606/yr", "title": "Chief Marine Engineer", "agency": "Dept of Transportation", "others": 2, "sources": [{"label": "chief marine engineer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20233002000.pdf"}, {"label": "marine engineer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20233013000.pdf"}, {"label": "wiper", "url": "https://en.wikipedia.org/wiki/Wiper_(occupation)"}], "note": null}, {"n": 2, "cat": "degree", "path": "Master's in school counseling", "total": "$519,634", "base": "$144,525/yr", "title": "Guidance Counselor", "agency": "Dept of Education", "others": 0, "sources": [{"label": "NYS rule", "url": "https://regulations.justia.com/states/new-york/title-8/chapter-ii/subchapter-c/part-80/subpart-80-3/section-80-3-11"}], "note": null}, {"n": 3, "cat": "trade", "path": "Plumbing apprenticeship or trade school", "total": "$465,034", "base": "$455.49/day", "title": "Supervisor Plumber", "agency": "NYC Housing Authority", "others": 2, "sources": [{"label": "supervisor", "url": "https://cityjobs.nyc.gov/job/supervisor-plumber-in-brooklyn-jid-13380"}, {"label": "plumber", "url": "https://cityjobs.nyc.gov/job/plumber-in-nyc-all-boros-jid-27343"}], "note": null}, {"n": 4, "cat": "trade", "path": "Steamfitting apprenticeship or trade school", "total": "$453,556", "base": "$486.92/day", "title": "Supervisor Steamfitter", "agency": "Dept of Correction", "others": 2, "sources": [{"label": "supervisor", "url": "https://cityjobs.nyc.gov/job/supervisor-steam-fitter-in-queens-jid-30839"}, {"label": "steamfitter", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20233106000.pdf"}], "note": null}, {"n": 5, "cat": "trade", "path": "Mechanical engineering degree, or a boiler-room helper job or apprenticeship", "total": "$437,314", "base": "$591.20/day", "title": "Stationary Engineer", "agency": "Admin for Children's Services", "others": 2, "sources": [{"label": "stationary engineer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266101000.pdf"}, {"label": "senior exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266097000.pdf"}, {"label": "license rules", "url": "https://www.nyc.gov/site/buildings/industry/obtain-a-high-pressure-boiler-operating-engineer-license.page"}], "note": null}, {"n": 6, "cat": "uniform", "path": "Correction Officer: high school diploma plus a year of work, military service or 39 college credits", "total": "$436,252", "base": "$130,260/yr", "title": "Captain", "agency": "Dept of Correction", "others": 4, "sources": [{"label": "captain exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244519000.pdf"}, {"label": "officer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244302000.pdf"}, {"label": "warden exam", "url": "https://home4.nyc.gov/assets/dcas/downloads/pdf/noes/20255553000.pdf"}], "note": null}, {"n": 7, "cat": "trade", "path": "Apprenticeship or trade school in a mechanical trade", "total": "$416,071", "base": "$594.80/day", "title": "Supervisor of Mechanics", "agency": "Dept of Correction", "others": 1, "sources": [{"label": "supervisor posting", "url": "https://cityjobs.nyc.gov/job/supervisor-of-mechanics-in-nyc-all-boros-jid-45241"}], "note": null}, {"n": 8, "cat": "degree", "path": "Bachelor's plus a state-approved teacher prep program, or NYC Teaching Fellows", "total": "$405,039", "base": "$140,588/yr", "title": "Teacher", "agency": "Dept of Education", "others": 8, "sources": [{"label": "requirements", "url": "https://teachnyc.net/getting-started/requirements-in-new-york-state"}, {"label": "chancellor waiver", "url": "https://www.edweek.org/leadership/nyc-schools-pick-gets-waiver-to-assume-chancellorship/2010/11"}], "note": null}, {"n": 9, "cat": "trade", "path": "Vocational high school, trade school or an associate in mechanical technology, plus equipment-maintenance work", "total": "$396,351", "base": "$538.00/day", "title": "Oiler", "agency": "Dept of Correction", "others": 0, "sources": [{"label": "oiler posting", "url": "https://cityjobs.nyc.gov/job/oiler-in-nyc-all-boros-jid-35441"}], "note": null}, {"n": 10, "cat": "degree", "path": "Bachelor's with 30 credits in social sciences (as a Probation Officer Trainee), or a graduate degree in social work or a related field", "total": "$394,177", "base": "$111,620/yr", "title": "Supervising Probation Officer", "agency": "Dept of Probation", "others": 0, "sources": [{"label": "trainee posting", "url": "https://cityjobs.nyc.gov/job/probation-officer-trainee-in-nyc-all-boros-jid-44029"}, {"label": "officer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266087000.pdf"}], "note": null}, {"n": 11, "cat": "degree", "path": "Law degree and New York bar admission", "total": "$393,180", "base": "$399,999/yr", "title": "Executive Agency Counsel", "agency": "NYC Housing Authority", "others": 13, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/executive-agency-counsel-in-nyc-all-boros-jid-37570"}], "note": null}, {"n": 12, "cat": "degree", "path": "Medical degree (MD or DO)", "total": "$392,716", "base": "$268,931/yr", "title": "City Medical Examiner", "agency": "Dept of Health and Mental Hygiene", "others": 12, "sources": [{"label": "medical examiner posting", "url": "https://cityjobs.nyc.gov/job/city-medical-examiner-i-in-nyc-all-boros-jid-21086"}, {"label": "psychiatrist posting", "url": "https://cityjobs.nyc.gov/job/psychiatrist-part-time-in-nyc-all-boros-jid-41286"}], "note": null}, {"n": 13, "cat": "uniform", "path": "Firefighter: high school diploma plus 15 college credits, military service or 6 months of work; apply before age 29", "total": "$390,848", "base": "$154,751/yr", "title": "Captain", "agency": "Fire Department", "others": 11, "sources": [{"label": "firefighter exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244044000.pdf"}, {"label": "fire marshal", "url": "https://www.joinfdny.com/careers/fire-marshal/"}], "note": null}, {"n": 14, "cat": "trade", "path": "Vocational high school or heavy-equipment work, plus a Class B commercial driver license", "total": "$373,810", "base": "$560.33/day", "title": "Tractor Operator", "agency": "Dept of Correction", "others": 1, "sources": [{"label": "exam notice", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20211265000.pdf"}], "note": null}, {"n": 15, "cat": "trade", "path": "Trade school or asphalt-paving equipment work, plus a Class B commercial driver license", "total": "$372,746", "base": "$623.66/day", "title": "Gasoline Roller Engineer", "agency": "Dept of Transportation", "others": 1, "sources": [{"label": "title spec", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/titlespecs/91616.pdf"}], "note": null}, {"n": 16, "cat": "degree", "path": "Bachelor's in business, finance, economics or accounting", "total": "$372,255", "base": "$385,453/yr", "title": "Pension Investment Advisor", "agency": "Office of the Comptroller", "others": 11, "sources": [{"label": "Comptroller posting", "url": "https://comptroller.nyc.gov/wp-content/uploads/documents/Senior-Investment-Officer-Private-Equity-015-022-014.pdf"}, {"label": "OMB posting", "url": "https://cityjobs.nyc.gov/job/analyst-fire-in-manhattan-jid-22512"}], "note": null}, {"n": 17, "cat": "trade", "path": "Electrical apprenticeship, trade school or college coursework", "total": "$364,237", "base": "$518.00/day", "title": "Supervisor Electrician", "agency": "NYC Housing Authority", "others": 2, "sources": [{"label": "electrician posting", "url": "https://cityjobs.nyc.gov/job/electrician-in-nyc-all-boros-jid-46059"}], "note": null}, {"n": 18, "cat": "degree", "path": "Graduate degree and a career in college administration", "total": "$361,464", "base": "$227,660/yr", "title": "Senior Vice President", "agency": "Bronx Community College", "others": 1, "sources": [], "note": "No source found"}, {"n": 19, "cat": "trade", "path": "Welding trade school or on-the-job welding work", "total": "$358,171", "base": "$636.93/day", "title": "Welder", "agency": "Dept of Correction", "others": 0, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/welder-in-nyc-all-boros-jid-38061"}], "note": null}, {"n": 20, "cat": "trade", "path": "Hoisting work under a licensed crane operator", "total": "$350,671", "base": "$632.10/day", "title": "Crane Operator", "agency": "Dept of Transportation", "others": 0, "sources": [{"label": "license rules", "url": "https://www.nyc.gov/site/buildings/industry/obtain-a-class-a-hoisting-machine-operator-license.page"}], "note": null}, {"n": 21, "cat": "degree", "path": "Bachelor's with math, statistics or actuarial coursework", "total": "$350,004", "base": "$361,089/yr", "title": "Chief Actuary", "agency": "Office of the Actuary", "others": 1, "sources": [{"label": "actuarial exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/actuarialspecialist.pdf"}], "note": null}, {"n": 22, "cat": "uniform", "path": "Police Officer: 60 college credits, or a high school diploma plus 2 years of military service; apply before age 35", "total": "$345,249", "base": "$170,234/yr", "title": "Lieutenant (Commander of Detective Squad)", "agency": "Police Department", "others": 28, "sources": [{"label": "police exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244307000.pdf"}], "note": null}, {"n": 23, "cat": "degree", "path": "Doctorate", "total": "$342,766", "base": "$283,560/yr", "title": "President", "agency": "Hostos Community College", "others": 2, "sources": [{"label": "search ad", "url": "https://www.kingsborough.edu/presidential-search/documents/KCC-President-Ad-2024.pdf"}], "note": null}, {"n": 24, "cat": "degree", "path": "Bachelor's degree, entering an analyst title such as Staff Analyst Trainee", "total": "$333,142", "base": "$194,938/yr", "title": "Administrative Staff Analyst", "agency": "Dept of Education", "others": 10, "sources": [{"label": "trainee posting", "url": "https://cityjobs.nyc.gov/job/staff-analyst-trainee-in-nyc-all-boros-jid-15450"}], "note": null}, {"n": 25, "cat": "trade", "path": "HVAC apprenticeship, trade school or helper work", "total": "$324,854", "base": "$434.98/day", "title": "Thermostat Repairer", "agency": "Dept of Correction", "others": 1, "sources": [{"label": "exam notice", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266111000.pdf"}], "note": null}, {"n": 26, "cat": "uniform", "path": "Firefighter route, or Coast Guard-approved deck time", "total": "$319,821", "base": "$130,584/yr", "title": "Pilot", "agency": "Fire Department", "others": 0, "sources": [{"label": "pilot exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20222541000.pdf"}], "note": null}, {"n": 27, "cat": "appoint", "path": "Appointed by the Board of Elections (no exam; staff are hired with party backing)", "total": "$314,050", "base": "$156,847/yr", "title": "Senior Administrator", "agency": "Board of Elections", "others": 2, "sources": [{"label": "NY1", "url": "https://ny1.com/nyc/all-boroughs/politics/2018/11/09/why-it-is-so-hard-to-fix-the-nyc-board-of-elections-not-professionally-run-organization"}], "note": null}, {"n": 28, "cat": "trade", "path": "Sheet metal apprenticeship or trade school", "total": "$308,002", "base": "$456.33/day", "title": "Sheet Metal Worker", "agency": "Dept of Correction", "others": 1, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/sheet-metal-worker-in-nyc-all-boros-jid-33731"}], "note": null}, {"n": 29, "cat": "appoint", "path": "Appointed by agency leadership (managerial titles and deputy commissioners)", "total": "$303,945", "base": "$312,357/yr", "title": "Executive Program Specialist", "agency": "Dept of Education", "others": 107, "sources": [], "note": "Appointed; no posting"}, {"n": 30, "cat": "degree", "path": "An IT certification, plus a bachelor's or IT work experience", "total": "$299,985", "base": "$116,194/yr", "title": "Certified IT Administrator", "agency": "Admin for Children's Services", "others": 12, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/certified-it-administrator-lan-wan-in-nyc-all-boros-jid-46480"}], "note": null}, {"n": 31, "cat": "trade", "path": "Auto mechanic apprenticeship or trade school", "total": "$297,877", "base": "$218,711/yr", "title": "Director of Motor Equipment Maintenance", "agency": "Dept of Sanitation", "others": 1, "sources": [{"label": "mechanic posting", "url": "https://cityjobs.nyc.gov/job/auto-mechanic-in-nyc-all-boros-jid-32194"}], "note": null}, {"n": 32, "cat": "uniform", "path": "Environmental Police Officer: high school diploma plus 24 college credits, 2 years of military service or 1 year in law enforcement; apply before age 35", "total": "$296,550", "base": "$96,210/yr", "title": "Environmental Police Officer", "agency": "Dept of Environmental Protection", "others": 1, "sources": [{"label": "exam notice", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266304000.pdf"}], "note": null}, {"n": 33, "cat": "appoint", "path": "Appointed by the Mayor", "total": "$296,535", "base": "$297,012/yr", "title": "Chief of Staff to the Mayor", "agency": "Office of the Mayor", "others": 48, "sources": [], "note": "Appointed; no posting"}, {"n": 34, "cat": "uniform", "path": "Sanitation Worker: Class B commercial driver license plus the city exam", "total": "$296,270", "base": "$150,365/yr", "title": "General Superintendent", "agency": "Dept of Sanitation", "others": 2, "sources": [{"label": "hiring process", "url": "https://www.nyc.gov/site/dsny/careers/sanitation-workers/hiring-process.page"}, {"label": "supervisor exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244551000.pdf"}], "note": null}, {"n": 35, "cat": "appoint", "path": "Law degree and bar admission, then political appointment", "total": "$284,706", "base": "$298,212/yr", "title": "Corporation Counsel", "agency": "Law Department", "others": 5, "sources": [{"label": "law posting", "url": "https://cityjobs.nyc.gov/job/executive-agency-counsel-in-nyc-all-boros-jid-37570"}], "note": null}, {"n": 36, "cat": "appoint", "path": "Appointed by the City Council", "total": "$284,418", "base": "$294,009/yr", "title": "Chief of Staff", "agency": "City Council", "others": 5, "sources": [], "note": "Appointed; no posting"}, {"n": 37, "cat": "trade", "path": "Plastering apprenticeship or trade school", "total": "$283,858", "base": "$460.64/day", "title": "Supervisor Plasterer", "agency": "NYC Housing Authority", "others": 1, "sources": [{"label": "plasterer posting", "url": "https://cityjobs.nyc.gov/job/plasterer-in-nyc-all-boros-jid-45088"}], "note": null}, {"n": 38, "cat": "trade", "path": "Vocational school or carpentry work", "total": "$283,552", "base": "$422.87/day", "title": "Supervisor Carpenter", "agency": "NYC Housing Authority", "others": 2, "sources": [{"label": "carpenter posting", "url": "https://cityjobs.nyc.gov/job/carpenter-in-queens-jid-41746"}], "note": null}, {"n": 39, "cat": "trade", "path": "Staten Island Ferry deckhand", "total": "$282,033", "base": "$174,607/yr", "title": "Captain", "agency": "Dept of Transportation", "others": 4, "sources": [{"label": "captain exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/pcaptain_ferry.pdf"}], "note": null}, {"n": 40, "cat": "trade", "path": "Locksmith school or apprenticeship", "total": "$281,686", "base": "$296.24/day", "title": "Locksmith", "agency": "Dept of Correction", "others": 0, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/locksmith-in-queens-jid-30880"}], "note": null}, {"n": 41, "cat": "trade", "path": "Painting apprenticeship", "total": "$280,870", "base": "$418.46/day", "title": "Supervisor Painter", "agency": "Dept of Correction", "others": 1, "sources": [{"label": "painter posting", "url": "https://cityjobs.nyc.gov/job/painter-in-nyc-all-boros-jid-46793"}], "note": null}, {"n": 42, "cat": "uniform", "path": "NYC Parks lifeguard: age 16 and a 50-yard swim test", "total": "$280,040", "base": "$60.13/hr", "title": "Chief Lifeguard", "agency": "Dept of Parks & Recreation", "others": 0, "sources": [{"label": "lifeguard test", "url": "https://prd2.nycgovparks.org/reg/life-guard-test"}], "note": null}, {"n": 43, "cat": "appoint", "path": "Appointed by a city board (pension and labor boards)", "total": "$279,185", "base": "$289,100/yr", "title": "Executive Director", "agency": "Teachers' Retirement System", "others": 4, "sources": [], "note": "Appointed; no posting"}, {"n": 44, "cat": "trade", "path": "Bricklaying apprenticeship or trade school", "total": "$275,382", "base": "$492.38/day", "title": "Supervisor Bricklayer", "agency": "NYC Housing Authority", "others": 1, "sources": [{"label": "bricklayer posting", "url": "https://cityjobs.nyc.gov/job/bricklayer-in-bronx-jid-30888"}], "note": null}, {"n": 45, "cat": "appoint", "path": "Appointed by the Schools Chancellor", "total": "$274,341", "base": "$284,068/yr", "title": "Deputy Chancellor, Financial Affairs", "agency": "Dept of Education", "others": 8, "sources": [], "note": "Appointed; no posting"}, {"n": 46, "cat": "appoint", "path": "Appointed by the Comptroller", "total": "$271,762", "base": "$280,103/yr", "title": "First Deputy Comptroller", "agency": "Office of the Comptroller", "others": 7, "sources": [], "note": "Appointed; no posting"}, {"n": 47, "cat": "degree", "path": "Engineering degree; the job requires a Professional Engineer license", "total": "$271,193", "base": "$278,769/yr", "title": "Administrative Engineer", "agency": "Dept of Environmental Protection", "others": 0, "sources": [{"label": "city posting", "url": "https://cityjobs.nyc.gov/job/administrative-engineer-in-nyc-all-boros-jid-14616"}], "note": null}, {"n": 48, "cat": "trade", "path": "Ironworker apprenticeship or ironwork, plus a Class B commercial driver license", "total": "$265,334", "base": "$145,437/yr", "title": "Supervisor of Ironwork", "agency": "Dept of Sanitation", "others": 2, "sources": [{"label": "bridge repairer posting", "url": "https://cityjobs.nyc.gov/job/bob-bridge-repairer-and-riveter-in-nyc-all-boros-jid-35159"}], "note": null}, {"n": 49, "cat": "trade", "path": "Electronics trade school or radio and electronics repair work", "total": "$264,338", "base": "$474.64/day", "title": "Radio Repair Mechanic", "agency": "Fire Department", "others": 2, "sources": [{"label": "radio repair mechanic exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/202000119000.pdf"}], "note": null}, {"n": 50, "cat": "degree", "path": "Bachelor's in engineering, architecture or construction management, or years of construction-site work", "total": "$263,616", "base": "$253,422/yr", "title": "Administrative Construction Project Manager", "agency": "Dept of Design & Construction", "others": 1, "sources": [{"label": "construction project manager posting", "url": "https://cityjobs.nyc.gov/job/construction-project-manager-in-nyc-all-boros-jid-26780"}], "note": null}, {"n": 51, "cat": "trade", "path": "Highway Repairer job; promotion requires a Class B commercial driver license", "total": "$261,756", "base": "$464.48/day", "title": "Supervisor Highway Repairer", "agency": "Dept of Transportation", "others": 3, "sources": [{"label": "supervisor exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244559000.pdf"}], "note": null}, {"n": 52, "cat": "trade", "path": "Three years as a mechanic or helper in the building trades, or trade school plus two years", "total": "$261,267", "base": "$280.48/day", "title": "Maintenance Worker", "agency": "Dept of Correction", "others": 3, "sources": [{"label": "maintenance worker exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266120000.pdf"}], "note": null}, {"n": 53, "cat": "appoint", "path": "Win a citywide or county election", "total": "$258,012", "base": "$258,750/yr", "title": "Mayor", "agency": "Office of the Mayor", "others": 2, "sources": [{"label": "how city campaigns are financed", "url": "https://www.nyccfb.info/program/how-it-works"}], "note": null}, {"n": 54, "cat": "degree", "path": "Bachelor's degree plus city-planning work; graduate study counts toward the experience", "total": "$256,042", "base": "$265,119/yr", "title": "Administrative City Planner", "agency": "Dept of Transportation", "others": 0, "sources": [{"label": "city planner posting", "url": "https://cityjobs.nyc.gov/job/city-planner-in-nyc-all-boros-jid-21832"}], "note": null}, {"n": 55, "cat": "uniform", "path": "FDNY EMT: high school diploma plus New York State EMT certification", "total": "$256,021", "base": "$265,097/yr", "title": "Supervising Emergency Medical Service Specialist", "agency": "Fire Department", "others": 1, "sources": [{"label": "EMT exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266125000.pdf"}], "note": null}, {"n": 56, "cat": "trade", "path": "Elevator mechanic apprenticeship or work, or electromechanical trade school", "total": "$255,440", "base": "$581.44/day", "title": "Supervisor Elevator Mechanic", "agency": "NYC Housing Authority", "others": 1, "sources": [{"label": "elevator mechanic posting", "url": "https://cityjobs.nyc.gov/job/elevator-mechanic-in-nyc-all-boros-jid-22454"}], "note": null}, {"n": 57, "cat": "trade", "path": "Rigging apprenticeship or rigging work", "total": "$248,701", "base": "$442.80/day", "title": "Rigger", "agency": "Dept of Transportation", "others": 0, "sources": [{"label": "rigger posting", "url": "https://cityjobs.nyc.gov/job/rigger-in-staten-island-jid-24711"}], "note": null}, {"n": 58, "cat": "degree", "path": "Bachelor's in forensic science, chemistry, biology or another lab science", "total": "$247,291", "base": "$130,031/yr", "title": "Criminalist", "agency": "Dept of Health and Mental Hygiene", "others": 3, "sources": [{"label": "criminalist posting", "url": "https://cityjobs.nyc.gov/job/criminalist-ib-forensic-biology-in-manhattan-jid-35933"}], "note": null}, {"n": 59, "cat": "trade", "path": "Boilermaker apprenticeship or helper work", "total": "$244,599", "base": "$533.52/day", "title": "Boiler Maker", "agency": "Dept of Transportation", "others": 1, "sources": [{"label": "boiler maker exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20200428000.pdf"}], "note": null}, {"n": 60, "cat": "degree", "path": "Bachelor's degree, or property-appraisal experience", "total": "$240,676", "base": "$249,208/yr", "title": "Administrative Assessor", "agency": "Dept of Finance", "others": 0, "sources": [{"label": "assistant city assessor posting", "url": "https://cityjobs.nyc.gov/job/assistant-city-assessor-in-manhattan-jid-37547"}], "note": null}, {"n": 61, "cat": "degree", "path": "30 college credits including 6 in accounting, or 2 years of bookkeeping", "total": "$240,345", "base": "$62,409/yr", "title": "Bookkeeper", "agency": "Dept of Social Services", "others": 0, "sources": [{"label": "bookkeeper posting", "url": "https://cityjobs.nyc.gov/job/bookkeeper-in-manhattan-jid-22394"}], "note": null}, {"n": 62, "cat": "trade", "path": "Two years of construction-trade work, a trade apprenticeship, or 60 engineering or architecture credits", "total": "$234,868", "base": "$146,156/yr", "title": "Administrative Inspector", "agency": "Dept of Transportation", "others": 3, "sources": [{"label": "construction inspector exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244053000.pdf"}], "note": null}, {"n": 63, "cat": "trade", "path": "Dockbuilder apprenticeship or pile-driving work", "total": "$230,187", "base": "$469.44/day", "title": "Supervisor Dockbuilder", "agency": "Dept of Transportation", "others": 0, "sources": [{"label": "dockbuilder posting", "url": "https://cityjobs.nyc.gov/job/dockbuilder-in-staten-island-jid-30865"}], "note": null}, {"n": 64, "cat": "uniform", "path": "Urban Park Ranger: 60 college credits, or high school plus a year of enforcement, security or outdoor-education work", "total": "$230,000", "base": "$59,126/yr", "title": "Associate Urban Park Ranger", "agency": "Dept of Parks & Recreation", "others": 0, "sources": [{"label": "park ranger exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244109000.pdf"}], "note": null}, {"n": 65, "cat": "degree", "path": "Bachelor's degree plus housing-management experience", "total": "$228,236", "base": "$107,974/yr", "title": "Housing Manager", "agency": "NYC Housing Authority", "others": 1, "sources": [{"label": "assistant housing manager posting", "url": "https://cityjobs.nyc.gov/job/assistant-housing-manager-in-bronx-jid-30538"}], "note": null}, {"n": 66, "cat": "uniform", "path": "Deputy Sheriff: bachelor's degree, or high school plus 2 years of military or professional work", "total": "$224,294", "base": "$95,025/yr", "title": "Deputy City Sheriff", "agency": "Dept of Finance", "others": 2, "sources": [{"label": "deputy sheriff exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20233069000.pdf"}], "note": null}, {"n": 67, "cat": "uniform", "path": "Three years of police or investigative work, then a District Attorney's office", "total": "$222,432", "base": "$207,500/yr", "title": "Chief Rackets Investigator", "agency": "Bronx District Attorney", "others": 3, "sources": [{"label": "rackets investigator posting", "url": "https://cityjobs.nyc.gov/job/senior-rackets-investigator-in-manhattan-jid-35075"}], "note": null}, {"n": 68, "cat": "appoint", "path": "Hired directly by a District Attorney's office", "total": "$220,948", "base": "$79,387/yr", "title": "Community Associate", "agency": "Manhattan District Attorney", "others": 2, "sources": [], "note": "Appointed; no posting"}, {"n": 69, "cat": "trade", "path": "Glazier apprenticeship or helper work", "total": "$219,981", "base": "$390.11/day", "title": "Supervisor Glazier", "agency": "NYC Housing Authority", "others": 0, "sources": [{"label": "glazier exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244045000.pdf"}], "note": null}, {"n": 70, "cat": "degree", "path": "Bachelor's degree, starting as an ACS Child Protective Specialist", "total": "$218,401", "base": "$102,427/yr", "title": "Child and Family Specialist", "agency": "Admin for Children's Services", "others": 1, "sources": [{"label": "child protective specialist posting", "url": "https://cityjobs.nyc.gov/job/child-protective-specialist-in-queens-jid-41849"}], "note": null}, {"n": 71, "cat": "degree", "path": "Professional architecture degree (B.Arch or M.Arch)", "total": "$216,286", "base": "$223,954/yr", "title": "Administrative Architect", "agency": "Dept of Buildings", "others": 0, "sources": [{"label": "assistant architect posting", "url": "https://cityjobs.nyc.gov/job/assistant-architect-in-nyc-all-boros-jid-37778"}], "note": null}, {"n": 72, "cat": "trade", "path": "Machinist apprenticeship or trade school", "total": "$216,052", "base": "$403.44/day", "title": "Machinist", "agency": "Dept of Correction", "others": 0, "sources": [{"label": "machinist exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20233079000.pdf"}], "note": null}, {"n": 73, "cat": "degree", "path": "Court-reporting school: stenotype at 175 words per minute", "total": "$212,490", "base": "$98,073/yr", "title": "Reporter/Stenographer", "agency": "Queens District Attorney", "others": 0, "sources": [{"label": "reporter/stenographer posting", "url": "https://cityjobs.nyc.gov/job/reporter-stenographer-in-bronx-jid-27682"}], "note": null}, {"n": 74, "cat": "trade", "path": "Roofing apprenticeship or helper work", "total": "$211,464", "base": "$382.83/day", "title": "Supervisor Roofer", "agency": "NYC Housing Authority", "others": 0, "sources": [{"label": "roofer exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20255150000.pdf"}], "note": null}, {"n": 75, "cat": "appoint", "path": "Appointed by the Surrogate's Court", "total": "$209,263", "base": "$209,340/yr", "title": "Public Administrator", "agency": "Public Administrator, Staten Island", "others": 0, "sources": [{"label": "state law", "url": "https://www.nysenate.gov/legislation/laws/SCP/1102"}], "note": null}, {"n": 76, "cat": "degree", "path": "Bachelor's in horticulture, arboriculture or landscape architecture", "total": "$208,127", "base": "$219,525/yr", "title": "Administrative Horticulturist", "agency": "Dept of Parks & Recreation", "others": 0, "sources": [{"label": "administrative horticulturist posting", "url": "https://cityjobs.nyc.gov/job/horticulture-manager-in-brooklyn-jid-33750"}], "note": null}, {"n": 77, "cat": "trade", "path": "Cement mason apprenticeship or helper work", "total": "$206,456", "base": "$391.30/day", "title": "Cement Mason", "agency": "Dept of Sanitation", "others": 0, "sources": [{"label": "cement mason exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20255033000.pdf"}], "note": null}, {"n": 78, "cat": "degree", "path": "Bachelor's with 30 science credits, plus health-inspection work", "total": "$206,010", "base": "$208,631/yr", "title": "Administrative Public Health Sanitarian", "agency": "Dept of Health and Mental Hygiene", "others": 0, "sources": [{"label": "sanitarian exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266122000.pdf"}], "note": null}, {"n": 79, "cat": "uniform", "path": "Fire Alarm Dispatcher: 60 college credits, or high school plus 2 years of emergency-communications work", "total": "$205,287", "base": "$107,001/yr", "title": "Supervising Fire Alarm Dispatcher", "agency": "Fire Department", "others": 0, "sources": [{"label": "dispatcher exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20255072000.pdf"}], "note": null}, {"n": 80, "cat": "trade", "path": "Typesetting or print-shop work, or vocational training", "total": "$204,458", "base": "$208,631/yr", "title": "Administrative Printing Services Manager", "agency": "Dept of Health and Mental Hygiene", "others": 1, "sources": [{"label": "compositor posting", "url": "https://cityjobs.nyc.gov/job/compositor-in-nyc-all-boros-jid-30257"}], "note": null}, {"n": 81, "cat": "degree", "path": "NYC asbestos investigator certification", "total": "$202,343", "base": "$94,820/yr", "title": "Asbestos Hazard Investigator", "agency": "NYC Housing Authority", "others": 0, "sources": [{"label": "asbestos investigator posting", "url": "https://cityjobs.nyc.gov/job/asbestos-hazard-investigator-in-nyc-all-boros-jid-38567"}], "note": null}, {"n": 82, "cat": "trade", "path": "High school diploma plus a year of mortuary or autopsy work", "total": "$201,428", "base": "$83,800/yr", "title": "Forensic Mortuary Technician", "agency": "Dept of Health and Mental Hygiene", "others": 0, "sources": [{"label": "mortuary technician posting", "url": "https://cityjobs.nyc.gov/job/forensic-mortuary-technician-i-in-nyc-all-boros-jid-45874"}], "note": null}, {"n": 83, "cat": "trade", "path": "High school plus 3 years of mechanical, electrical, plumbing or plant work", "total": "$200,940", "base": "$446.16/day", "title": "Senior Sewage Treatment Worker", "agency": "Dept of Environmental Protection", "others": 0, "sources": [{"label": "sewage treatment worker exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20244090000.pdf"}], "note": null}, {"n": 84, "cat": "uniform", "path": "Traffic Enforcement Agent: high school diploma", "total": "$200,044", "base": "$206,987/yr", "title": "Administrative Traffic Enforcement Agent", "agency": "Police Department", "others": 0, "sources": [{"label": "traffic enforcement agent exam", "url": "https://www.nyc.gov/assets/dcas/downloads/pdf/noes/20266310000.pdf"}], "note": null}];
+const grid = document.getElementById('grid');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function card(r) {
+  const others = r.others > 0 ? ` (+ ${r.others} other title${r.others > 1 ? 's' : ''})` : '';
+  const src = r.sources.length
+    ? 'Sources: ' + r.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join(', ')
+    : esc(r.note);
+  return `<article class="card ${r.cat}" data-cat="${r.cat}" aria-labelledby="p${r.n}">
+    <div class="num">${r.n}</div>
+    <h2 class="path" id="p${r.n}" data-ref="start"><span class="hint">How to start</span><span class="t">${esc(r.path)}</span></h2>
+    <div class="pay" data-ref="pay"><span class="hint">Top 2025 pay</span><strong class="t">${esc(r.total)}</strong><span class="t">base ${esc(r.base)}</span></div>
+    <div class="title-line" data-ref="title"><span class="hint">Best-paid job on this path, of the 443</span><span class="t"><span class="title">${esc(r.title)}</span><span class="rest">, ${esc(r.agency)}${others}</span></span></div>
+    <div class="sources" data-ref="sources"><span class="hint">Where the requirements come from</span><span class="t">${src}</span></div>
+  </article>`;
+}
+grid.innerHTML = DATA.map(card).join('');
+const buttons = [...document.querySelectorAll('.filters button')];
+const allBtn = buttons.find(b => b.dataset.cat === 'all');
+const selected = new Set();
+function apply() {
+  allBtn.setAttribute('aria-pressed', String(selected.size === 0));
+  buttons.forEach(b => { if (b !== allBtn) b.setAttribute('aria-pressed', String(selected.has(b.dataset.cat))); });
+  grid.querySelectorAll('.card').forEach(el => { el.hidden = selected.size > 0 && !selected.has(el.dataset.cat); el.classList.remove('annotated'); });
+  const first = grid.querySelector('.card:not([hidden])');
+  if (first) first.classList.add('annotated');
+}
+buttons.forEach(b => {
+  const c = b.dataset.cat;
+  b.querySelector('.count').textContent = c === 'all' ? DATA.length : DATA.filter(r => r.cat === c).length;
+  b.addEventListener('click', () => {
+    if (c === 'all') selected.clear();
+    else if (selected.has(c)) selected.delete(c);
+    else selected.add(c);
+    apply();
+  });
+});
+apply();
+function setHl(ref, on) {
+  document.querySelectorAll(`.ref[data-ref="${ref}"], .card.annotated [data-ref="${ref}"]`).forEach(el => el.classList.toggle('hl', on));
+}
+function refOf(t) {
+  const el = t.closest && t.closest('.ref, .card.annotated [data-ref]');
+  return el ? el.dataset.ref : null;
+}
+['mouseover', 'focusin'].forEach(ev => document.addEventListener(ev, e => { const r = refOf(e.target); if (r) setHl(r, true); }));
+['mouseout', 'focusout'].forEach(ev => document.addEventListener(ev, e => {
+  const r = refOf(e.target);
+  if (r && !(e.relatedTarget && refOf(e.relatedTarget) === r)) setHl(r, false);
+}));
+</script>
+
+</body>
+</html>
