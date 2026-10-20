@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>First Steps into NYC's Best-Paid Public Jobs</title>
 <meta name="description" content="84 ways to start a City of New York career, covering every job title that paid someone at least $200,000 in fiscal-year 2025 payroll.">
+<link rel="canonical" href="https://city.mavi.party/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://city.mavi.party/">
+<meta property="og:title" content="First steps into NYC's best-paid public jobs">
+<meta property="og:description" content="84 ways to start a City of New York career, covering every job title that paid someone at least $200,000 in fiscal-year 2025 payroll.">
+<meta property="og:image" content="https://city.mavi.party/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The page's title and intro above its first card: Chief Marine Engineer, $646,305 in 2025.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap">
@@ -13,6 +23,7 @@
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; }
 [hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 </style>
 <style>
 /* Layout: short header and category filter, then a single readable column of flat cards ordered by top pay */
@@ -178,7 +189,9 @@ footer.notes { grid-area: notes; }
   <div class="lead">
   <header class="top">
     <h1>First steps into NYC's best-paid public jobs</h1>
-    <p class="lede">Each card is <span class="ref" data-ref="start" tabindex="0">one way to start</span> a career with the City of New York: a trade, a civil-service exam, a degree, an appointment or an election. Together the 84 cards cover all 443 job titles that paid someone at least $200,000 in the <a href="https://data.cityofnewyork.us/d/k397-673e" target="_blank" rel="noopener">city's official 2025 payroll</a>. Each card shows the <span class="ref" data-ref="title" tabindex="0">best-paid job</span> its start led to, that job's <span class="ref" data-ref="pay" tabindex="0">2025 pay</span>, and the <span class="ref" data-ref="sources" tabindex="0">postings that set out the requirements</span>.</p>
+    <p class="lede">Each card is <span class="ref" data-ref="start" tabindex="0" aria-describedby="ref-help">one way to start</span> a career with the City of New York: a trade, a civil-service exam, a degree, an appointment or an election. Together the 84 cards cover all 443 job titles that paid someone at least $200,000 in the <a href="https://data.cityofnewyork.us/d/k397-673e" target="_blank" rel="noopener">city's official 2025 payroll</a>. Each card shows the <span class="ref" data-ref="title" tabindex="0" aria-describedby="ref-help">best-paid job</span> its start led to, that job's <span class="ref" data-ref="pay" tabindex="0" aria-describedby="ref-help">2025 pay</span>, and the <span class="ref" data-ref="sources" tabindex="0" aria-describedby="ref-help">postings that set out the requirements</span>.</p>
+    <p class="lede">That pay is the most any one person in the job received, not what the job typically pays. On more than half the cards it is over double the base salary, inflated by overtime or by one-off lump sums such as retroactive raises.</p>
+    <span id="ref-help" class="sr-only">Highlights the matching part of the first card.</span>
   </header>
 
   <div class="filters" role="group" aria-label="Filter by type of entry path; select one or more">
@@ -195,7 +208,8 @@ footer.notes { grid-area: notes; }
   <footer class="notes">
     <p>Pay is total fiscal-year 2025 pay (July 2024 – June 2025): regular pay plus overtime plus other pay such as lump sums and retroactive raises. Base salary is shown beside it; a large gap usually means a one-off payout. Base salary is the annual rate at the end of the fiscal year, so it can be higher than what was actually paid when someone got a raise or started partway through the year.</p>
     <p>Source: NYC Office of Payroll Administration, <a href="https://data.cityofnewyork.us/d/k397-673e">Citywide Payroll Data (Fiscal Year)</a>. Titles share a card when their entry path is the same; appointed jobs are grouped by who appoints. A title counts once it paid at least one person $200,000 or more in total. To look up individual employees, the same payroll is searchable at <a href="https://www.seethroughny.net/payrolls/city-of-new-york" target="_blank" rel="noopener">SeeThroughNY</a>.</p>
-    <p>Not affiliated with the City of New York. Requirements change; check the current exam notice or posting before applying.</p>
+    <p>Not affiliated with the City of New York. Requirements and links are as of October 2026; they change, so check the current exam notice or posting before applying.</p>
+    <p>Text and card data licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</p>
   </footer>
 </div>
 
