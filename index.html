@@ -106,14 +106,24 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .card.annotated .pay .hint { margin-left: auto; }
 /* two-way highlight between the intro and the labelled card */
 .ref { color: var(--ink); border-bottom: 1.5px dotted var(--hl); cursor: help; border-radius: 2px; }
-.ref, .card.annotated [data-ref] .t { background-image: linear-gradient(var(--hint-bg), var(--hint-bg)); background-repeat: no-repeat; background-position: left center; background-size: 0% 100%; transition: background-size .4s cubic-bezier(.3,.7,.3,1), color .2s; }
-.ref.hl { background-size: 100% 100%; color: var(--hint-ink); }
+/* --p (0 to 1) is how far the sweep has run along the highlighted text, all lines laid end to end.
+   The strip is the box background; each text run (.g) has an ink layer clipped to its glyphs,
+   sized from its offset (--o) and length (--w) along the strip (--W). The script measures these. */
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+.ref, .card.annotated [data-ref] .t { --W: 0px; background-image: linear-gradient(var(--hint-bg), var(--hint-bg)); background-repeat: no-repeat; background-position: left center; background-size: calc(var(--p) * 100%) 100%; transition: --p .4s cubic-bezier(.3,.7,.3,1); }
+.ref.hl, .card.annotated [data-ref].hl .t { --p: 1; }
+.card.annotated [data-ref].hl .t { border-radius: 2px; }
+.ref .g, .card.annotated [data-ref] .t .g {
+  --o: 0px; --w: 0px;
+  background-image: linear-gradient(var(--hint-ink), var(--hint-ink)), linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: clamp(0px, calc(var(--p) * var(--W) - var(--o)), var(--w)) 100%, 100% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
 @media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
 .ref.now, .card.annotated [data-ref].now .t { transition: none; }
-.card.annotated [data-ref].hl .t { background-size: 100% 100%; color: var(--hint-ink); border-radius: 2px; }
-.card.annotated [data-ref].hl .t .rest, .card.annotated [data-ref].hl .t a { color: var(--hint-ink); }
 .ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
-.pay span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
+.pay > span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
 .title-line { grid-column: 1 / -1; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
 .title-line .title { font-weight: 600; }
 .title-line .rest { color: var(--muted); }
@@ -158,7 +168,7 @@ footer.notes { grid-area: notes; }
   .card { grid-template-columns: 40px 1fr; }
   .pay { grid-column: 1 / -1; text-align: left; padding-bottom: 0; border-bottom: 0; }
   .card.annotated .pay .hint { margin: 0 0 8px; }
-  .pay strong, .pay span { display: inline; margin: 0; }
+  .pay strong, .pay > span { display: inline; margin: 0; }
   .pay strong { margin-right: 8px; }
 }
 </style>
@@ -207,6 +217,12 @@ function card(r) {
   </article>`;
 }
 grid.innerHTML = DATA.map(card).join('');
+// wrap each run of text in a .g so its colour can follow the sweep
+document.querySelectorAll('.ref, .card [data-ref] .t').forEach(root => {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT), nodes = [];
+  while (w.nextNode()) if (w.currentNode.data.trim()) nodes.push(w.currentNode);
+  nodes.forEach(n => { const g = document.createElement('span'); g.className = 'g'; n.replaceWith(g); g.append(n); });
+});
 const buttons = [...document.querySelectorAll('.filters button')];
 const allBtn = buttons.find(b => b.dataset.cat === 'all');
 const selected = new Set();
@@ -228,9 +244,26 @@ buttons.forEach(b => {
   });
 });
 apply();
+// lay a highlighted element's lines end to end; give each text run its offset and length on that strip
+function measure(el) {
+  const lines = [...el.getClientRects()];
+  if (!lines.length) return;
+  let len = 0;
+  const starts = lines.map(r => { const s = len; len += r.width; return s; });
+  el.style.setProperty('--W', len + 'px');
+  el.querySelectorAll('.g').forEach(g => {
+    const rs = [...g.getClientRects()];
+    if (!rs.length) return;
+    const mid = rs[0].top + rs[0].height / 2;
+    const i = Math.max(0, lines.findIndex(l => mid >= l.top && mid <= l.bottom));
+    g.style.setProperty('--o', starts[i] + rs[0].left - lines[i].left + 'px');
+    g.style.setProperty('--w', rs.reduce((n, r) => n + r.width, 0) + 'px');
+  });
+}
 function setHl(ref, on, src) {
   const els = document.querySelectorAll(`.ref[data-ref="${ref}"], .card.annotated [data-ref="${ref}"]`);
   if (on) {
+    els.forEach(el => el.matches('.ref') ? measure(el) : el.querySelectorAll('.t').forEach(measure));
     if (src) src.classList.add('now');
     els.forEach(el => el.classList.add('hl'));
   } else {
