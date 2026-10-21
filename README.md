@@ -8,6 +8,4 @@ A single static page: `index.html`. The card data is embedded in it as `const DA
 
 ## License
 
-The page's text, card groupings and code are licensed under
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (see `LICENSE`). The payroll figures are
-NYC Open Data, published by the City of New York.
+MIT (see `LICENSE`). The payroll figures are NYC Open Data, published by the City of New York.
