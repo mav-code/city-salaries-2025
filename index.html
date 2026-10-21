@@ -134,6 +134,8 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .ref.now, .card.annotated [data-ref].now .t { transition: none; }
 .ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
 .pay > span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
+/* shrink the right-aligned pay lines to their text so the highlight strip starts at the first digit, not the box edge */
+@media (min-width: 441px) { .pay > .t { display: table; margin-left: auto; } }
 .title-line { grid-column: 1 / -1; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
 .title-line .title { font-weight: 600; }
 .title-line .rest { color: var(--muted); }
