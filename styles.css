@@ -5,42 +5,53 @@ body { margin: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 /* Layout: short header and category filter, then a single readable column of flat cards ordered by top pay */
+/* Palette from coach.mavi.party: a four-step warm ramp where touching surfaces are one step apart,
+   plus a mauve accent never used as a fill. Category fills and the aqua label/highlight are deliberate
+   exceptions: they sit outside the warm ramp so they stand out from it. */
 :root {
-  --ground: #f3f4f6;
-  --card: #ffffff;
-  --ink: #16191d;
-  --muted: #646d77;
-  --rule: #e1e4e8;
-  --link: #2459b3;
-  --num-bg: #121417;
-  --num-ink: #f5f6f7;
-  --hint-bg: #fbeea8;
-  --hint-ink: #4a3b00;
-  --hl: #e8c53a;
-  --select-bg: rgb(36 89 179 / .25);
+  --step-1: #d45f2a;
+  --step-2: #eda551;
+  --step-3: #f9d074;
+  --step-4: #f8f0e4;
+  --accent: #e2c3da;
+  --ground: var(--step-1);
+  --card: var(--step-2);
+  --raised: var(--step-3);
+  --ink: #1a1208;
+  --muted: #4a3520;
+  --rule: #000000;
+  --link: #1e3a8a;
+  --focus: var(--ink);
+  --num-bg: #1a1208;
+  --num-ink: var(--step-4);
+  --hint-bg: #a6ece2;
+  --hint-ink: #0b2f2b;
+  --hl: var(--muted);
+  --select-bg: rgb(30 58 138 / .25);
   --on-cat: #ffffff;
-  --cat-trade: #b25e24;
-  --cat-uniform: #2c5c9a;
-  --cat-degree: #2d7556;
-  --cat-appoint: #66519f;
+  --cat-trade: #b4065f;
+  --cat-uniform: #1f5fae;
+  --cat-degree: #2f7a3a;
+  --cat-appoint: #4b2a6e;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+/* Dark: the same ramp, darkened and desaturated, with softened cream text */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
-    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
-    --select-bg: rgb(134 180 255 / .3);
-    --on-cat: #ffffff;
-    --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+    --step-1: #1c0d06; --step-2: #3d2312; --step-3: #6b4419;
+    --ink: #e2d5bf; --muted: #bfa98b; --rule: #000000; --link: #a9c4ff; --focus: var(--accent);
+    --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: #7fd9cc; --hint-ink: #0b2f2b; --hl: var(--accent);
+    --select-bg: rgb(169 196 255 / .3);
+    --cat-trade: #a8095a; --cat-uniform: #2160ab; --cat-degree: #2f733a; --cat-appoint: #56317c;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
-    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
-    --select-bg: rgb(134 180 255 / .3);
-  --on-cat: #ffffff;
-  --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+  --step-1: #1c0d06; --step-2: #3d2312; --step-3: #6b4419;
+  --ink: #e2d5bf; --muted: #bfa98b; --rule: #000000; --link: #a9c4ff; --focus: var(--accent);
+  --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: #7fd9cc; --hint-ink: #0b2f2b; --hl: var(--accent);
+  --select-bg: rgb(169 196 255 / .3);
+  --cat-trade: #a8095a; --cat-uniform: #2160ab; --cat-degree: #2f733a; --cat-appoint: #56317c;
   color-scheme: dark;
 }
 body {
@@ -61,13 +72,13 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .filters button {
   font: inherit; font-size: 13px; font-weight: 600;
   display: inline-flex; align-items: center; gap: 7px;
-  background: var(--card); color: var(--ink);
+  background: var(--raised); color: var(--ink);
   border: 1px solid var(--rule); border-radius: 3px;
   padding: 6px 11px; cursor: pointer;
 }
 .filters button .sw { width: 10px; height: 10px; background: var(--sw, var(--muted)); }
-.filters button[aria-pressed="true"] { border-color: var(--ink); }
-.filters button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.filters button[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--rule); }
+.filters button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .filters .count { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 .grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
@@ -117,7 +128,7 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .ref .g::selection, .card.annotated [data-ref] .t .g::selection { background-color: var(--select-bg); }
 @media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
 .ref.now, .card.annotated [data-ref].now .t { transition: none; }
-.ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .pay > span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
 /* shrink the right-aligned pay lines to their text so the highlight strip starts at the first digit, not the box edge */
 @media (min-width: 441px) { .pay > .t { display: table; margin-left: auto; } }
@@ -127,10 +138,13 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .sources { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding: 10px 16px 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
 .sources a { color: var(--link); text-decoration: none; }
 .sources a:hover, .sources a:focus-visible { text-decoration: underline; }
-a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-footer.notes { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 80ch; border-top: 1px solid var(--rule); padding-top: 14px; }
+/* intro and notes sit on panels like the cards, keeping text off the step-1 ground */
+.lead, footer.notes { background: var(--card); border: 1px solid var(--rule); padding: 16px; }
+footer.notes { color: var(--muted); font-size: 13px; line-height: 1.6; }
 footer.notes p { margin: 0 0 6px; }
+footer.notes p:last-child { margin-bottom: 0; }
 footer.notes a { color: var(--link); }
 
 .wrap { grid-template-areas: "lead" "main" "notes"; }
@@ -146,7 +160,7 @@ footer.notes { grid-area: notes; }
     grid-template-areas: "lead ." "main notes";
     column-gap: 2.5rem;
   }
-  footer.notes { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); border-top: 0; padding-top: 0; }
+  footer.notes { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); }
 }
 @media (min-width: 100rem) {
   .wrap {
