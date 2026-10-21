@@ -17,6 +17,7 @@ body { margin: 0; }
   --hint-bg: #fbeea8;
   --hint-ink: #4a3b00;
   --hl: #e8c53a;
+  --select-bg: rgb(36 89 179 / .25);
   --on-cat: #ffffff;
   --cat-trade: #b25e24;
   --cat-uniform: #2c5c9a;
@@ -28,6 +29,7 @@ body { margin: 0; }
   :root:not([data-theme="light"]) {
     --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
     --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+    --select-bg: rgb(134 180 255 / .3);
     --on-cat: #ffffff;
     --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
     color-scheme: dark;
@@ -36,6 +38,7 @@ body { margin: 0; }
 :root[data-theme="dark"] {
   --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
     --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+    --select-bg: rgb(134 180 255 / .3);
   --on-cat: #ffffff;
   --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
   color-scheme: dark;
@@ -109,6 +112,8 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
   background-size: clamp(0px, calc(var(--p) * var(--W) - var(--o)), var(--w)) 100%, 100% 100%;
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
+/* Firefox paints its opaque default selection over text-clipped ink, hiding the text; a translucent one lets it show */
+.ref .g::selection, .card.annotated [data-ref] .t .g::selection { background-color: var(--select-bg); }
 @media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
 .ref.now, .card.annotated [data-ref].now .t { transition: none; }
 .ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
