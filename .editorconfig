@@ -1,0 +1,4 @@
+root = true
+
+[*.njk]
+max_line_length = 100
