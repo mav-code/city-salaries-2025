@@ -1,0 +1,164 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* Layout: short header and category filter, then a single readable column of flat cards ordered by top pay */
+:root {
+  --ground: #f3f4f6;
+  --card: #ffffff;
+  --ink: #16191d;
+  --muted: #646d77;
+  --rule: #e1e4e8;
+  --link: #2459b3;
+  --num-bg: #121417;
+  --num-ink: #f5f6f7;
+  --hint-bg: #fbeea8;
+  --hint-ink: #4a3b00;
+  --hl: #e8c53a;
+  --on-cat: #ffffff;
+  --cat-trade: #b25e24;
+  --cat-uniform: #2c5c9a;
+  --cat-degree: #2d7556;
+  --cat-appoint: #66519f;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
+    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+    --on-cat: #ffffff;
+    --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0d0f12; --card: #181b20; --ink: #e8ebee; --muted: #9aa3ad; --rule: #2a2f36; --link: #86b4ff;
+    --num-bg: #000000; --num-ink: #f5f6f7; --hint-bg: #4d4112; --hint-ink: #f7e8a8; --hl: #c9a72a;
+  --on-cat: #ffffff;
+  --cat-trade: #a8561f; --cat-uniform: #2f5d99; --cat-degree: #2b6e51; --cat-appoint: #634e9b;
+  color-scheme: dark;
+}
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 36px 48px;
+}
+.wrap { max-width: 56.25rem; margin: 0 auto; display: grid; gap: 20px; }
+header.top { display: grid; gap: 8px; max-width: 70ch; }
+h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+.lede { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.lede a { color: var(--link); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button {
+  font: inherit; font-size: 13px; font-weight: 600;
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--card); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 3px;
+  padding: 6px 11px; cursor: pointer;
+}
+.filters button .sw { width: 10px; height: 10px; background: var(--sw, var(--muted)); }
+.filters button[aria-pressed="true"] { border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.filters .count { color: var(--muted); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+
+.card {
+  --cat: var(--cat-trade);
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  min-width: 0;
+}
+.card.uniform { --cat: var(--cat-uniform); }
+.card.degree { --cat: var(--cat-degree); }
+.card.appoint { --cat: var(--cat-appoint); }
+.path { background: var(--cat); color: var(--on-cat); }
+.num { background: var(--num-bg); color: var(--num-ink); }
+.num { font-weight: 700; font-size: 16px; font-variant-numeric: tabular-nums; display: flex; justify-content: center; padding-top: 13px; }
+.path { margin: 0; font-weight: 600; font-size: 16px; line-height: 1.35; text-wrap: balance; padding: 12px 16px 12px 2px; min-width: 0; }
+.pay { padding: 12px 16px; font-variant-numeric: tabular-nums; text-align: right; border-bottom: 1px solid var(--rule); }
+.pay strong { display: block; font-weight: 700; font-size: 16px; }
+.card:not(.annotated) .hint { display: none; }
+.card.annotated .hint, .card.annotated .pay .hint {
+  display: table; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--hint-bg); color: var(--hint-ink); padding: 2px 6px; border-radius: 2px; margin: 0 0 6px; white-space: nowrap;
+}
+.pay .hint { margin-left: auto; }
+.card.annotated .pay .hint { margin-left: auto; }
+/* two-way highlight between the intro and the labelled card */
+.ref { color: var(--ink); border-bottom: 1.5px dotted var(--hl); cursor: help; border-radius: 2px; }
+/* --p (0 to 1) is how far the sweep has run along the highlighted text, all lines laid end to end.
+   The strip is the box background; each text run (.g) has an ink layer clipped to its glyphs,
+   sized from its offset (--o) and length (--w) along the strip (--W). The script measures these. */
+@property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+.ref, .card.annotated [data-ref] .t { --W: 0px; background-image: linear-gradient(var(--hint-bg), var(--hint-bg)); background-repeat: no-repeat; background-position: left center; background-size: calc(var(--p) * 100%) 100%; transition: --p .4s cubic-bezier(.3,.7,.3,1); }
+.ref.hl, .card.annotated [data-ref].hl .t { --p: 1; }
+.card.annotated [data-ref].hl .t { border-radius: 2px; }
+.ref .g, .card.annotated [data-ref] .t .g {
+  --o: 0px; --w: 0px;
+  background-image: linear-gradient(var(--hint-ink), var(--hint-ink)), linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: clamp(0px, calc(var(--p) * var(--W) - var(--o)), var(--w)) 100%, 100% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) { .ref, .card.annotated [data-ref] .t { transition: none; } }
+.ref.now, .card.annotated [data-ref].now .t { transition: none; }
+.ref:focus-visible, .card.annotated [data-ref]:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.pay > span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
+/* shrink the right-aligned pay lines to their text so the highlight strip starts at the first digit, not the box edge */
+@media (min-width: 441px) { .pay > .t { display: table; margin-left: auto; } }
+.title-line { grid-column: 1 / -1; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
+.title-line .title { font-weight: 600; }
+.title-line .rest { color: var(--muted); }
+.sources { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding: 10px 16px 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.sources a { color: var(--link); text-decoration: none; }
+.sources a:hover, .sources a:focus-visible { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+footer.notes { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 80ch; border-top: 1px solid var(--rule); padding-top: 14px; }
+footer.notes p { margin: 0 0 6px; }
+footer.notes a { color: var(--link); }
+
+.wrap { grid-template-areas: "lead" "main" "notes"; }
+.lead { grid-area: lead; display: grid; gap: 20px; }
+.grid { grid-area: main; }
+footer.notes { grid-area: notes; }
+
+/* Wider screens: notes move to a right-hand column first, then title and filters to a left-hand column */
+@media (min-width: 80rem) {
+  .wrap {
+    max-width: calc(56.25rem + 16rem + 2.5rem);
+    grid-template-columns: minmax(0, 56.25rem) 16rem;
+    grid-template-areas: "lead ." "main notes";
+    column-gap: 2.5rem;
+  }
+  footer.notes { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); border-top: 0; padding-top: 0; }
+}
+@media (min-width: 100rem) {
+  .wrap {
+    max-width: calc(56.25rem + 2 * 16rem + 2 * 2.5rem);
+    grid-template-columns: 16rem minmax(0, 56.25rem) 16rem;
+    grid-template-areas: "lead main notes";
+  }
+  .lead { align-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); }
+  .lead h1 { font-size: 22px; }
+  .filters { flex-direction: column; align-items: stretch; }
+  .filters button { justify-content: flex-start; }
+  .filters .count { margin-left: auto; }
+}
+
+@media (max-width: 440px) {
+  .card { grid-template-columns: 40px 1fr; }
+  .pay { grid-column: 1 / -1; text-align: left; padding-bottom: 0; border-bottom: 0; }
+  .card.annotated .pay .hint { margin: 0 0 8px; }
+  .pay strong, .pay > span { display: inline; margin: 0; }
+  .pay strong { margin-right: 8px; }
+}
