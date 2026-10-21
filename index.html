@@ -50,8 +50,8 @@ function card(r) {
   return `<article class="card ${r.cat}" data-cat="${r.cat}" aria-labelledby="p${r.n}">
     <div class="num">${r.n}</div>
     <h2 class="path" id="p${r.n}" data-ref="start"><span class="hint">How to start</span><span class="t">${esc(r.path)}</span></h2>
-    <div class="pay" data-ref="pay"><span class="hint">Top 2025 pay</span><strong class="t">${esc(r.total)}</strong><span class="t">base ${esc(r.base)}</span></div>
     <div class="title-line" data-ref="title"><span class="hint">Best-paid city job from here</span><span class="t"><span class="title">${esc(r.title)}</span><span class="rest">, ${esc(r.agency)}${others}</span></span></div>
+    <div class="pay" data-ref="pay"><span class="hint">Top 2025 pay</span><strong class="t">${esc(r.total)}</strong><span class="t">base ${esc(r.base)}</span></div>
     <div class="sources" data-ref="sources"><span class="hint">Where the requirements come from</span><span class="t">${src}</span></div>
   </article>`;
 }

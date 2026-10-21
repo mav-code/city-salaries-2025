@@ -86,8 +86,9 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .path { background: var(--cat); color: var(--on-cat); }
 .num { background: var(--num-bg); color: var(--num-ink); }
 .num { font-weight: 700; font-size: 16px; font-variant-numeric: tabular-nums; display: flex; justify-content: center; padding-top: 13px; }
-.path { margin: 0; font-weight: 600; font-size: 16px; line-height: 1.35; text-wrap: balance; padding: 12px 16px 12px 8px; min-width: 0; }
-.pay { padding: 12px 16px; font-variant-numeric: tabular-nums; text-align: right; border-bottom: 1px solid var(--rule); }
+.path { grid-column: 2 / -1; margin: 0; font-weight: 600; font-size: 16px; line-height: 1.35; text-wrap: balance; padding: 12px 16px 12px 8px; min-width: 0; }
+/* second row: the job on the left, its pay on the right, sharing a baseline */
+.pay { grid-column: 3; align-self: first baseline; padding: 12px 16px; font-variant-numeric: tabular-nums; text-align: right; }
 .pay strong { display: block; font-weight: 700; font-size: 16px; }
 .card:not(.annotated) .hint { display: none; }
 .card.annotated .hint, .card.annotated .pay .hint {
@@ -120,7 +121,7 @@ h1 { margin: 0; font-size: 26px; font-weight: 700; letter-spacing: -0.01em; text
 .pay > span { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; white-space: nowrap; }
 /* shrink the right-aligned pay lines to their text so the highlight strip starts at the first digit, not the box edge */
 @media (min-width: 441px) { .pay > .t { display: table; margin-left: auto; } }
-.title-line { grid-column: 1 / -1; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
+.title-line { grid-column: 1 / 3; align-self: first baseline; padding: 12px 16px; font-size: 14.5px; line-height: 1.4; }
 .title-line .title { font-weight: 600; }
 .title-line .rest { color: var(--muted); }
 .sources { grid-column: 1 / -1; border-top: 1px solid var(--rule); padding: 10px 16px 12px; font-size: 13px; line-height: 1.5; color: var(--muted); }
@@ -163,7 +164,8 @@ footer.notes { grid-area: notes; }
 @media (max-width: 440px) {
   .card { grid-template-columns: 40px 1fr; }
   .path { padding-left: 5px; }
-  .pay { grid-column: 1 / -1; text-align: left; padding-bottom: 0; border-bottom: 0; }
+  .title-line { grid-column: 1 / -1; padding-bottom: 6px; }
+  .pay { grid-column: 1 / -1; text-align: left; padding-top: 0; }
   .card.annotated .pay .hint { margin: 0 0 8px; }
   .pay strong, .pay > span { display: inline; margin: 0; }
   .pay strong { margin-right: 8px; }
