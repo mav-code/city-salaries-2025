@@ -6,8 +6,8 @@ body { margin: 0; }
 
 /* Layout: short header and category filter, then a single readable column of flat cards ordered by top pay */
 /* Palette from coach.mavi.party: a four-step warm ramp where touching surfaces are one step apart,
-   plus a mauve accent never used as a fill. Category fills and the aqua label/highlight are deliberate
-   exceptions: they sit outside the warm ramp so they stand out from it. */
+   plus a mauve accent never used as a fill. Category fills are a deliberate exception, chosen to stand apart
+   from the ramp. Labels and the highlight stand out by inverting text and ground rather than adding a hue. */
 :root {
   --step-1: #d45f2a;
   --step-2: #eda551;
@@ -24,8 +24,8 @@ body { margin: 0; }
   --focus: var(--ink);
   --num-bg: #1a1208;
   --num-ink: var(--step-4);
-  --hint-bg: #a6ece2;
-  --hint-ink: #0b2f2b;
+  --hint-bg: var(--ink);
+  --hint-ink: var(--raised);
   --hl: var(--muted);
   --select-bg: rgb(30 58 138 / .25);
   --on-cat: #ffffff;
@@ -40,7 +40,7 @@ body { margin: 0; }
   :root:not([data-theme="light"]) {
     --step-1: #1c0d06; --step-2: #3d2312; --step-3: #6b4419;
     --ink: #e2d5bf; --muted: #bfa98b; --rule: #000000; --link: #a9c4ff; --focus: var(--accent);
-    --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: #7fd9cc; --hint-ink: #0b2f2b; --hl: var(--accent);
+    --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: var(--ink); --hint-ink: #1a1208; --hl: var(--accent);
     --select-bg: rgb(169 196 255 / .3);
     --cat-trade: #a8095a; --cat-uniform: #2160ab; --cat-degree: #2f733a; --cat-appoint: #56317c;
     color-scheme: dark;
@@ -49,7 +49,7 @@ body { margin: 0; }
 :root[data-theme="dark"] {
   --step-1: #1c0d06; --step-2: #3d2312; --step-3: #6b4419;
   --ink: #e2d5bf; --muted: #bfa98b; --rule: #000000; --link: #a9c4ff; --focus: var(--accent);
-  --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: #7fd9cc; --hint-ink: #0b2f2b; --hl: var(--accent);
+  --num-bg: #0a0502; --num-ink: #f8f0e4; --hint-bg: var(--ink); --hint-ink: #1a1208; --hl: var(--accent);
   --select-bg: rgb(169 196 255 / .3);
   --cat-trade: #a8095a; --cat-uniform: #2160ab; --cat-degree: #2f733a; --cat-appoint: #56317c;
   color-scheme: dark;
